@@ -1,0 +1,13 @@
+.__pcs_cs {
+    width: 100%;
+}
+.__pcs_cs img, span {
+    display: block;
+    margin: 1.5rem auto;
+}
+.__pcs_cs_search_engine {
+    display: block;
+    min-height: 85vh;
+    margin: 0 auto;
+    background-color: white;
+}
