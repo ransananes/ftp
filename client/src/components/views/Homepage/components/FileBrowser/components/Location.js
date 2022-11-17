@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import StorageIcon from "@material-ui/icons/Storage";
 
-import Value from "../shared/Value";
+import Value from "../assets/Value";
 
 const StyledStorageIcon = styled(StorageIcon)`
     color: gray;

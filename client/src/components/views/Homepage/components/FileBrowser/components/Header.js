@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import styled from "styled-components";
-import Title from "../shared/Title";
-import IconButton from "../shared/IconButton";
+import Title from "../assets/Title";
+import IconButton from "../assets/IconButton"
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { Grid } from "@material-ui/core";
@@ -32,7 +32,6 @@ const Header = ({ currentDirectory, onPreviousClick, onNextClick, nextEnabled, p
             <Title>{currentDirectory}</Title>
         </Grid>
         <Grid item xs={5}>
-
         </Grid>
     </StyledHeader>;
 };

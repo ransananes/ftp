@@ -4,14 +4,13 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+import Homepage from './components/views/Homepage/Homepage'
 
-import Homepage from './pages/Homepage/Homepage';
 function App() {
   return (
     <Router>
     <Routes>
       <Route path="/" element={<Homepage/>} />
-      {/* <Route path="/search" component={searchPage} /> */}
     </Routes>
   </Router>
   );

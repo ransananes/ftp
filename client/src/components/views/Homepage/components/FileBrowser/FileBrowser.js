@@ -7,7 +7,7 @@ import FileList from "./components/FileList";
 import LeftSideBar from "./components/LeftSideBar";
 import Header from "./components/Header";
 
-const FileBrowser = ({ locations, currentDirectory, onLocationClick, previousEnabled, nextEnabled, onPreviousClick, onNextClick, currentFiles, onFileClick, onFolderCreate}) => {
+const FileBrowser = ({ locations, currentDirectory, onLocationClick, previousEnabled, nextEnabled, onPreviousClick, onNextClick, currentFiles, onFileClick, onNewFolderClick, onRefreshClick}) => {
     return <FileWindow>
         <LeftSideBar locations={locations} onLocationClick={onLocationClick}/>
         <Grid item xs={9}>
@@ -18,7 +18,7 @@ const FileBrowser = ({ locations, currentDirectory, onLocationClick, previousEna
                 onPreviousClick={onPreviousClick}
                 onNextClick={onNextClick}
             />
-            <FileList files={currentFiles} onFileClick={onFileClick} onFolderCreate={onFolderCreate} />
+            <FileList files={currentFiles} onFileClick={onFileClick} onNewFolderClick={onNewFolderClick} onRefreshClick={onRefreshClick} currentDirectory={currentDirectory} />
         </Grid>
     </FileWindow>;
 };
@@ -29,7 +29,7 @@ FileBrowser.propTypes = {
   locations: PropTypes.array,
   nextEnabled: PropTypes.bool,
   onFileClick: PropTypes.func,
-  onFolderCreate: PropTypes.func,
+  onNewFolderClick: PropTypes.func,
   onLocationClick: PropTypes.func,
   onNextClick: PropTypes.func,
   onPreviousClick: PropTypes.func,

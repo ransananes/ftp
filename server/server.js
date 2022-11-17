@@ -11,21 +11,18 @@ app.use(cors());
 
 // Connect to mongoDB
 mongoose
-  .connect("mongodb://localhost:27017/privateCloudStorage" , {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+  .connect("mongodb://localhost:27017/privateCloudStorage", {
   })
   .then(() => {
     console.log("Mongo db connected");
   })
   .catch((err) => console.log(err));
-app.get('/', (req,res) => {
-    res.send("poop");
-  });
+app.get("/", (req, res) => {});
+
 // Use Routes
 app.use("/api/ls", require("./routes/api/ls"));
-app.use("/api/addNewFile", require("./routes/api/addNewFile"))
-app.use("/api/uploadNewFile", require("./routes/api/uploadNewFile"))
+app.use("/api/addNewFile", require("./routes/api/addNewFile"));
+// app.use("/api/uploadNewFile", require("./routes/api/uploadNewFile"));
 
 // Serve static assets if we are in production
 if (process.env.NODE_ENV === "production") {
@@ -36,8 +33,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
-
-
 
 const port = process.env.PORT || 5000;
 
