@@ -14,8 +14,9 @@ import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import RefreshIcon from '@material-ui/icons/Refresh';
-import Upload from "./Upload";
+import RefreshIcon from "@material-ui/icons/Refresh";
+import FileUpload from "./FileUpload";
+import { formatBytes } from "../../../../../../utils/utils";
 
 const useStyles = makeStyles(() => ({
   white: {
@@ -87,18 +88,21 @@ const StyledRefreshIcon = styled(RefreshIcon)`
   font-size: 30px !important;
   margin-right: 4px;
 `;
-const FileList = ({ files, onFileClick, onNewFolderClick, onRefreshClick, currentDirectory }) => {
+const FileList = ({
+  files,
+  onFileClick,
+  onNewFolderClick,
+  onRefreshClick,
+  currentDirectory,
+}) => {
   const classes = useStyles();
   return (
     <TableContainer>
       <Grid item align="center">
-        <StyledRefreshIcon onClick={() => onRefreshClick()}/>
+        <StyledRefreshIcon onClick={() => onRefreshClick()} />
         <StyledCreateNewFolder onClick={() => onNewFolderClick()} />
-      
-
       </Grid>
-      <Grid>
-      </Grid>
+      <Grid></Grid>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
@@ -133,10 +137,10 @@ const FileList = ({ files, onFileClick, onNewFolderClick, onRefreshClick, curren
                     {file.fileName}
                   </TableCell>
                   <TableCell className={classes.gray}>
-                    {file.Date_added}
+                    {file.creationDate}
                   </TableCell>
                   <TableCell className={classes.gray} align="right">
-                    {file.size}
+                    {formatBytes(file.size)}
                   </TableCell>
                   <TableCell className={classes.gray}>{file.kind}</TableCell>
                   <TableCell className={classes.gray}>
@@ -163,11 +167,8 @@ const FileList = ({ files, onFileClick, onNewFolderClick, onRefreshClick, curren
         </TableBody>
       </Table>
 
-      <StyledFileButtons
-        justifyContent="center"
-      >
-
-        <Upload currentDirectory={currentDirectory}/>
+      <StyledFileButtons justifyContent="center">
+        <FileUpload currentDirectory={currentDirectory} />
       </StyledFileButtons>
     </TableContainer>
   );

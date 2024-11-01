@@ -11,7 +11,7 @@ const FilesSchema = new Schema({
     type: String,
     required: true,
   },
-  Date_added: {
+  creationDate: {
     type: String,
     required: true,
   },

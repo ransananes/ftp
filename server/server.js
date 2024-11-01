@@ -1,27 +1,20 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const path = require("path");
 const cors = require("cors");
-
 const app = express();
+
+const database = require("./database/database");
 
 // Bodyparser Middleware
 app.use(express.json());
 app.use(cors());
 
-// Connect to mongoDB
-mongoose
-  .connect("mongodb://localhost:27017/privateCloudStorage", {
-  })
-  .then(() => {
-    console.log("Mongo db connected");
-  })
-  .catch((err) => console.log(err));
+
 app.get("/", (req, res) => {});
 
 // Use Routes
 app.use("/api/ls", require("./routes/api/ls"));
-app.use("/api/addNewFile", require("./routes/api/addNewFile"));
+app.use("/api/addNewFile", require("./routes/api/newFile/addNewFile"));
 // app.use("/api/uploadNewFile", require("./routes/api/uploadNewFile"));
 
 // Serve static assets if we are in production

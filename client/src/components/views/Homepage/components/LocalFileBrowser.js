@@ -4,6 +4,7 @@ import FileBrowser from "./FileBrowser/FileBrowser";
 import { isValid } from "../../../../utils/utils";
 import { server } from "../../../../constants/data";
 import { publicRequest } from "../../../../api/requestMethods";
+import { getFileExtension } from "../../../../utils/filesUtils";
 
 const initalDirectory = "/";
 
@@ -48,7 +49,7 @@ const LocalFileBrowser = () => {
         setCurrentFiles(() =>
           response.data.files.map((file) => ({
             ...file,
-            kind: file.isFolder ? "folder" : "document",
+            kind: file.isFolder ? "folder" : getFileExtension(file.fileName),
             size: file.Size || file.fileSizeInBytes,
           }))
         );
@@ -68,10 +69,11 @@ const LocalFileBrowser = () => {
       alert("Can't leave empty description");
       return;
     }
+
     let item = {
       name: folder_name,
       isFolder: true,
-      current_dir: currentDirectory,
+      currentDir: currentDirectory,
       description: description_folder,
     };
     publicRequest
@@ -82,6 +84,7 @@ const LocalFileBrowser = () => {
       })
       .catch((error) => alert(error));
   };
+
   const onRefreshList = () => {
     getFilesFromDir();
   }
