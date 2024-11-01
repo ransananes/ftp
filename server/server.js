@@ -15,7 +15,7 @@ app.get("/", (req, res) => {});
 // Use Routes
 app.use("/api/ls", require("./routes/api/ls"));
 app.use("/api/addNewFile", require("./routes/api/newFile/addNewFile"));
-// app.use("/api/uploadNewFile", require("./routes/api/uploadNewFile"));
+app.use("/api/download", require("./routes/api/downloadFile"));
 
 // Serve static assets if we are in production
 if (process.env.NODE_ENV === "production") {
