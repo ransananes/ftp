@@ -58,7 +58,8 @@ const LocalFileBrowser = () => {
   };
 
   const onFolderCreate = () => {
-    var folder_name = prompt("Create the folder");
+    let folder_name = prompt("Create the folder");
+    if(!folder_name) return;
     // checks if folder name is valid
     if (!isValid(folder_name) || folder_name.includes("002F")) {
       alert("Can't create folder with the name " + folder_name);

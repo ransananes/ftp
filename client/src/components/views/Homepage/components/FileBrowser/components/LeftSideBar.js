@@ -26,7 +26,7 @@ const LocationItems = styled.div`
 
 const LeftSideBar = ({ locations, onLocationClick }) => (
   <StyledLeftSideBar item xs={3}>
-    <Grid container justifyContent="flex-start">
+    <Grid container justifycontent="flex-start">
       <LeftAlignGrid item xs={12}>
         <Label>Favorites</Label>
       </LeftAlignGrid>

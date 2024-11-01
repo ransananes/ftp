@@ -6,7 +6,7 @@ import LocalFileBrowser from "./components/LocalFileBrowser";
 function Homepage() {
   return (
     <div className="__pcs_cs">
-      <img src={logo} alt="RadarCloudStorage" />
+      <img src={logo} alt="CloudStorage" />
       <div className="__pcs_cs_search_engine">
         <div className="__pcs_cs_search_results">
           <LocalFileBrowser />

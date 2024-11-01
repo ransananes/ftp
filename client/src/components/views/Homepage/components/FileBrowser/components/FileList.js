@@ -167,7 +167,7 @@ const FileList = ({
         </TableBody>
       </Table>
 
-      <StyledFileButtons justifyContent="center">
+      <StyledFileButtons justifycontent="center">
         <FileUpload currentDirectory={currentDirectory} />
       </StyledFileButtons>
     </TableContainer>
