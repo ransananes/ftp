@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/:file", async (req, res) => {
   try {
     // get the current filePath
-    let filePath = req.url.replaceAll("/002F", "/");
+    let filePath = req.url.replaceAll("002F", "/");
     const fullPath = path.join(folderPath, filePath);
     // Send the file for download
     res.download(fullPath, (err) => {

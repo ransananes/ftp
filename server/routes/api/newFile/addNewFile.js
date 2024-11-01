@@ -2,14 +2,13 @@ const express = require("express");
 const router = express.Router();
 
 // path location for uploading files
-const data = require("../../../constants/data");
-const path = data.path;
+const { folderPath } = require("../../../constants/data");
 
 // multer configuration
 const multer = require("multer");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path + req.headers.directory);
+    cb(null, folderPath + req.headers.directory);
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname); //Appending extension
@@ -30,14 +29,12 @@ router.post("/", upload.single("file"), async (req, res) => {
   // get current Date
   let creationDate = date.getDate();
   if (isFolder) {
-    const fullPath = path + currentDir + name;
+    const fullPath = folderPath + currentDir + name;
     createNewFolder(fullPath, currentDir, name, creationDate, description, res);
-  }
-  else {
+  } else {
     // upload a file to db
-    console.log(currentDir)
     const { size, filename } = req.file;
-    createNewFile(filename, currentDir, size , creationDate, description, res);
+    createNewFile(filename, currentDir, size, creationDate, description, res);
   }
 });
 
