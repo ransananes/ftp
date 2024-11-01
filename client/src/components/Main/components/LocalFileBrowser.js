@@ -25,7 +25,6 @@ const LocalFileBrowser = () => {
   const [locations, setLocations] = useState([]);
 
   const [selectedFile, setSelectedFile] = useState();
-  // const [fileContent, setFileContent] = useState(false);
 
   useEffect(() => {
     getFilesFromDir();
@@ -36,10 +35,39 @@ const LocalFileBrowser = () => {
       const nextDirectory = pathJoin([currentDirectory, file.fileName]) + "/";
       changeDirectory(nextDirectory);
     } else {
-      setSelectedFile(file);
+      // change string to prevent bugs
+      let filePath = pathJoin([currentDirectory, file.fileName]).replaceAll(
+        "/",
+        "002F"
+      );
+      publicRequest
+        .get(`api/download/${filePath}`, {
+          responseType: "blob",
+        })
+        .then((response) => {
+          // Create a URL for the file data
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+
+          const filename = file.fileName;
+          
+          // create a download link
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", filename);
+          link.style.display = "none";
+
+          document.body.appendChild(link);
+          link.click();
+
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(url);
+        })
+        .catch((error) => {
+          console.error("Download error:", error);
+        });
     }
   };
-  
+
   const getFilesFromDir = () => {
     // change string to prevent bugs
     var url_link = currentDirectory.replaceAll("/", "002F");
@@ -60,7 +88,7 @@ const LocalFileBrowser = () => {
 
   const onFolderCreate = () => {
     let folder_name = prompt("Create the folder");
-    if(!folder_name) return;
+    if (!folder_name) return;
     // checks if folder name is valid
     if (!isValid(folder_name) || folder_name.includes("002F")) {
       alert("Can't create folder with the name " + folder_name);
@@ -89,7 +117,7 @@ const LocalFileBrowser = () => {
 
   const onRefreshList = () => {
     getFilesFromDir();
-  }
+  };
   const changeDirectory = (newDirectory) => {
     setCurrentDirectory(newDirectory);
     setHistory((prev) => [newDirectory, ...prev.slice(currentIndex)]);
