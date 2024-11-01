@@ -39,6 +39,7 @@ const LocalFileBrowser = () => {
       setSelectedFile(file);
     }
   };
+  
   const getFilesFromDir = () => {
     // change string to prevent bugs
     var url_link = currentDirectory.replaceAll("/", "002F");

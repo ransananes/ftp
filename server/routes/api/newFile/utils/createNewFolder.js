@@ -14,7 +14,7 @@ const createNewFolder = (fullPath, folderPath, name, creationDate, description, 
     const size = 0;
 
     // Save to DB
-    const newFile = new FileModel({
+    const newFolder = new FileModel({
       filePath: folderPath,
       fileName: name,
       creationDate: creationDate,
@@ -23,7 +23,7 @@ const createNewFolder = (fullPath, folderPath, name, creationDate, description, 
       Description: description,
     });
 
-    newFile.save()
+    newFolder.save()
       .then(() => {
         return res.status(200).json({
           status: "Folder Created Successfully!",

@@ -37,7 +37,7 @@ function FileUpload({ currentDirectory }) {
   };
 
   return (
-    <Dragger {...uploadProps} style={{backgroundColor: "white"}}>
+    <Dragger {...uploadProps} style={{backgroundColor: "white", width:"70%", margin:"auto", marginTop:"2rem"}}>
       <p className="ant-upload-drag-icon">
         <InboxOutlined />
       </p>

@@ -30,9 +30,14 @@ const useStyles = makeStyles(() => ({
   },
   evenRow: {
     backgroundColor: "#2a2b33",
+    "&:hover": {
+      backgroundColor: "#3c3d44",
+    },
   },
-  table: {
-    cursor: "pointer",
+  oddRow : {
+    "&:hover": {
+      backgroundColor: "#3c3d44",
+    },
   },
 }));
 
@@ -51,6 +56,12 @@ const StyledFolderIcon = styled(FolderIcon)`
   vertical-align: bottom;
   font-size: 20px !important;
   margin-right: 4px;
+
+  &:hover {
+    color: #3c8dbc; 
+    transform: scale(1.1); 
+    transition: color 0.3s, transform 0.3s;
+  }
 `;
 
 const StyledFileIcon = styled(InsertDriveFileIcon)`
@@ -58,6 +69,11 @@ const StyledFileIcon = styled(InsertDriveFileIcon)`
   vertical-align: bottom;
   font-size: 20px !important;
   margin-right: 4px;
+  &:hover {
+    color: #3c8dbc; 
+    transform: scale(1.1); 
+    transition: color 0.3s, transform 0.3s;
+  }
 `;
 const StyledCloudDownloadIcon = styled(CloudDownloadIcon)`
   color: white;
@@ -71,6 +87,11 @@ const StyledCreateNewFolder = styled(CreateNewFolderIcon)`
   cursor: pointer;
   font-size: 30px !important;
   margin-right: 4px;
+  &:hover {
+    color: #3c8dbc; 
+    transform: scale(1.15); 
+    transition: color 0.3s, transform 0.3s;
+  }
 `;
 
 const StyledFavoriteBorderIcon = styled(FavoriteBorderIcon)`
@@ -87,6 +108,20 @@ const StyledRefreshIcon = styled(RefreshIcon)`
   cursor: pointer;
   font-size: 30px !important;
   margin-right: 4px;
+  &:hover {
+    color: #3c8dbc; 
+    animation: rotate 1s forwards;
+    transform: scale(1.15);
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 `;
 const FileList = ({
   files,
@@ -102,7 +137,7 @@ const FileList = ({
         <StyledRefreshIcon onClick={() => onRefreshClick()} />
         <StyledCreateNewFolder onClick={() => onNewFolderClick()} />
       </Grid>
-      <Grid></Grid>
+
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
@@ -125,13 +160,15 @@ const FileList = ({
               return (
                 <TableRow
                   key={file._id}
-                  className={i % 2 === 0 ? classes.evenRow : ""}
-                  onClick={() => onFileClick(file, i)}
+                  className={i % 2 === 0 ? classes.evenRow : classes.oddRow }
+                  style={{}}
                 >
                   <TableCell
                     className={classes.white}
                     component="th"
                     scope="row"
+                    onClick={() => onFileClick(file, i)} // Set click only on Name cell
+                    style={{ cursor: "pointer" }}
                   >
                     {file.isFolder ? <StyledFolderIcon /> : <StyledFileIcon />}
                     {file.fileName}
@@ -148,17 +185,16 @@ const FileList = ({
                   </TableCell>
                   {file.isFolder ? (
                     <TableCell className={classes.gray}>
-                      {" "}
                       <StyledFavoriteBorderIcon
                         onClick={() => {
                           console.log("clicked");
                         }}
-                      />{" "}
+                        style={{ cursor: "pointer" }}
+                      />
                     </TableCell>
                   ) : (
                     <TableCell className={classes.gray}>
-                      {" "}
-                      <StyledCloudDownloadIcon />
+                      <StyledCloudDownloadIcon style={{ cursor: "pointer" }} />
                     </TableCell>
                   )}
                 </TableRow>
