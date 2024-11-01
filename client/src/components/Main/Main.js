@@ -1,9 +1,9 @@
 import React from "react";
 import logo from "./assets/logo.png";
-import "./Homepage.css";
+import "./Main.css";
 import LocalFileBrowser from "./components/LocalFileBrowser";
 
-function Homepage() {
+function Main() {
   return (
     <div className="__pcs_cs">
       <img src={logo} alt="CloudStorage" />
@@ -16,4 +16,4 @@ function Homepage() {
   );
 }
 
-export default Homepage;
+export default Main;

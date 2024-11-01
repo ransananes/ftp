@@ -16,7 +16,7 @@ import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import FileUpload from "./FileUpload";
-import { formatBytes } from "../../../../../../utils/utils";
+import { formatBytes } from "../../../../../utils/utils";
 
 const useStyles = makeStyles(() => ({
   white: {

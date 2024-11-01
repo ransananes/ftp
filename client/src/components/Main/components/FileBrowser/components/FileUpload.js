@@ -1,7 +1,7 @@
 import React from "react";
 import { message, Upload } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
-import { server } from "../../../../../../constants/data";
+import { server } from "../../../../../constants/data";
 
 const { Dragger } = Upload;
 
