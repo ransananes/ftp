@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
 
-import StorageIcon from "@material-ui/icons/Storage";
+import StorageIcon from "@mui/icons-material/Storage";
 
 import Value from "../assets/Value";
 

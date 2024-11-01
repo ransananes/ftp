@@ -2,25 +2,28 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import Table from "@material-ui/core/Table";
-import { Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import { TableHead, TableRow } from "@material-ui/core";
-import FolderIcon from "@material-ui/icons/Folder";
-import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
-import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
-import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import RefreshIcon from "@material-ui/icons/Refresh";
+import { Grid2 } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+import FolderIcon from "@mui/icons-material/Folder";
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+import CreateNewFolderIcon from "@mui/icons-material/Folder";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import RefreshIcon from "@mui/icons-material/Refresh";
 import FileUpload from "./FileUpload";
 import { formatBytes } from "../../../../../utils/utils";
 
 const useStyles = makeStyles(() => ({
   white: {
-    color: "white",
+    color: "white !important",
   },
   gray: {
     color: "gray",
@@ -34,14 +37,14 @@ const useStyles = makeStyles(() => ({
       backgroundColor: "#3c3d44",
     },
   },
-  oddRow : {
+  oddRow: {
     "&:hover": {
       backgroundColor: "#3c3d44",
     },
   },
 }));
 
-const StyledFileButtons = styled(Grid)`
+const StyledFileButtons = styled(Grid2)`
   width: 100%;
   height: 100%;
   border-radius: 10px;
@@ -58,8 +61,8 @@ const StyledFolderIcon = styled(FolderIcon)`
   margin-right: 4px;
 
   &:hover {
-    color: #3c8dbc; 
-    transform: scale(1.1); 
+    color: #3c8dbc;
+    transform: scale(1.1);
     transition: color 0.3s, transform 0.3s;
   }
 `;
@@ -70,8 +73,8 @@ const StyledFileIcon = styled(InsertDriveFileIcon)`
   font-size: 20px !important;
   margin-right: 4px;
   &:hover {
-    color: #3c8dbc; 
-    transform: scale(1.1); 
+    color: #3c8dbc;
+    transform: scale(1.1);
     transition: color 0.3s, transform 0.3s;
   }
 `;
@@ -88,8 +91,8 @@ const StyledCreateNewFolder = styled(CreateNewFolderIcon)`
   font-size: 30px !important;
   margin-right: 4px;
   &:hover {
-    color: #3c8dbc; 
-    transform: scale(1.15); 
+    color: #3c8dbc;
+    transform: scale(1.15);
     transition: color 0.3s, transform 0.3s;
   }
 `;
@@ -109,7 +112,7 @@ const StyledRefreshIcon = styled(RefreshIcon)`
   font-size: 30px !important;
   margin-right: 4px;
   &:hover {
-    color: #3c8dbc; 
+    color: #3c8dbc;
     animation: rotate 1s forwards;
     transform: scale(1.15);
   }
@@ -133,10 +136,10 @@ const FileList = ({
   const classes = useStyles();
   return (
     <TableContainer>
-      <Grid item align="center">
+      <Grid2 align="center">
         <StyledRefreshIcon onClick={() => onRefreshClick()} />
         <StyledCreateNewFolder onClick={() => onNewFolderClick()} />
-      </Grid>
+      </Grid2>
 
       <Table className={classes.table}>
         <TableHead>
@@ -144,14 +147,14 @@ const FileList = ({
             <TableCell className={`${classes.white} ${classes.header}`}>
               Name
             </TableCell>
-            <TableCell className={`${classes.gray} ${classes.header}`}>
+            <TableCell className={`${classes.white} ${classes.header}`}>
               Date Modified
             </TableCell>
-            <TableCell className={`${classes.gray} ${classes.header}`}>
+            <TableCell className={`${classes.white} ${classes.header}`}>
               Size
             </TableCell>
-            <TableCell className={classes.gray}>Kind</TableCell>
-            <TableCell className={classes.gray}>Description</TableCell>
+            <TableCell className={classes.white}>Kind</TableCell>
+            <TableCell className={classes.white}>Description</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -160,7 +163,7 @@ const FileList = ({
               return (
                 <TableRow
                   key={file._id}
-                  className={i % 2 === 0 ? classes.evenRow : classes.oddRow }
+                  className={i % 2 === 0 ? classes.evenRow : classes.oddRow}
                   style={{}}
                 >
                   <TableCell
@@ -173,18 +176,18 @@ const FileList = ({
                     {file.isFolder ? <StyledFolderIcon /> : <StyledFileIcon />}
                     {file.fileName}
                   </TableCell>
-                  <TableCell className={classes.gray}>
+                  <TableCell className={classes.white}>
                     {file.creationDate}
                   </TableCell>
-                  <TableCell className={classes.gray} align="right">
+                  <TableCell className={classes.white} align="right">
                     {formatBytes(file.size)}
                   </TableCell>
-                  <TableCell className={classes.gray}>{file.kind}</TableCell>
-                  <TableCell className={classes.gray}>
+                  <TableCell className={classes.white}>{file.kind}</TableCell>
+                  <TableCell className={classes.white}>
                     {file.Description}
                   </TableCell>
                   {file.isFolder ? (
-                    <TableCell className={classes.gray}>
+                    <TableCell className={classes.white}>
                       <StyledFavoriteBorderIcon
                         onClick={() => {
                           console.log("clicked");
@@ -193,7 +196,7 @@ const FileList = ({
                       />
                     </TableCell>
                   ) : (
-                    <TableCell className={classes.gray}>
+                    <TableCell className={classes.white}>
                       <StyledCloudDownloadIcon style={{ cursor: "pointer" }} />
                     </TableCell>
                   )}

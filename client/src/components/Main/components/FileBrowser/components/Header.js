@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import Title from "../assets/Title";
 import IconButton from "../assets/IconButton"
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import { Grid } from "@material-ui/core";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos"
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { Grid2 } from "@mui/material";
 
-const StyledHeader = styled(Grid)`    
+const StyledHeader = styled(Grid2)`    
     width: 100%;
     height: 70px;
     float: left;
@@ -18,21 +18,20 @@ const StyledHeader = styled(Grid)`
 
 const Header = ({ currentDirectory, onPreviousClick, onNextClick, nextEnabled, previousEnabled }) => {
     return <StyledHeader container alignItems="center" direction="row" justifycontent="flex-start" >
-        <Grid item xs style={{ marginLeft: 8 }}>
+        <Grid2 style={{ marginLeft: 8 }}>
             <IconButton onClick={previousEnabled ? onPreviousClick : () => {}} disabled={!previousEnabled}>
                 <ArrowBackIosIcon />
             </IconButton>
-        </Grid>
-        <Grid item xs>
+        </Grid2>
+        <Grid2 >
             <IconButton onClick={nextEnabled ? onNextClick : () => {}} disabled={!nextEnabled}>
                 <ArrowForwardIosIcon />
             </IconButton>
-        </Grid>
-        <Grid item style={{ textAlign: "left" }} xs={6}>
+        </Grid2>
+        <Grid2 style={{ textAlign: "left" }} size={6}>
             <Title>{currentDirectory}</Title>
-        </Grid>
-        <Grid item xs={5}>
-        </Grid>
+        </Grid2>
+
     </StyledHeader>;
 };
 
