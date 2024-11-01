@@ -1,6 +1,6 @@
 # Folder Manager Web App
 
-This is a web-based file management application built with React that allows users to manage files and folders on their local system. The app provides functionalities for browsing, uploading, downloading, creating folders, and deleting files—all accessible via the web interface.
+This is a web-based file management application built with React that allows users to manage files and folders on their local system. The app provides functionalities for browsing, uploading, downloading, creating folders, and deleting files - all accessible via the web interface.
 
 ## Features
 
@@ -21,4 +21,3 @@ This is a web-based file management application built with React that allows use
 ### Prerequisites
 
 - Node.js (v14 or higher)
-- Git (optional)
