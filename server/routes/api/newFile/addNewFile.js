@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // path location for uploading files
+const path = require('path');
 const { folderPath } = require("../../../constants/data");
 
 // multer configuration
@@ -29,7 +30,7 @@ router.post("/", upload.single("file"), async (req, res) => {
   // get current Date
   let creationDate = date.getDate();
   if (isFolder) {
-    const fullPath = folderPath + currentDir + name;
+    const fullPath = path.join(folderPath, currentDir, name);
     createNewFolder(fullPath, currentDir, name, creationDate, description, res);
   } else {
     // upload a file to db

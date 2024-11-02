@@ -113,7 +113,7 @@ const LocalFileBrowser = () => {
         alert(response.data.status);
         getFilesFromDir();
       })
-      .catch((error) => alert(error));
+      .catch((error) => toast.error(ERROR.FOLDER));
   };
 
   const onRefreshList = () => {

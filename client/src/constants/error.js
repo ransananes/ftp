@@ -6,6 +6,7 @@ const ERROR = {
   TIMEOUT: "Request timed out. Please try again.",
   UNKNOWN: "An unknown error occurred. Please try again.",
   FILE_TOO_LARGE: "File is too large to upload.",
+  FOLDER: "Unexpected error while trying to create a folder",
 };
 
 export default ERROR;

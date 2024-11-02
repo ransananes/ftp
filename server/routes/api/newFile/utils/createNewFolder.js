@@ -3,7 +3,7 @@ const FileModel = require('../../../../modules/file');
 
 // Create New Folder function
 const createNewFolder = (fullPath, folderPath, name, creationDate, description, res) => {
-  fs.mkdir(fullPath, { recursive: true }, (err) => {
+  fs.mkdir(fullPath, (err) => {
     if (err) {
       return res.status(400).json({
         status: "Error has occurred while creating the folder!",
