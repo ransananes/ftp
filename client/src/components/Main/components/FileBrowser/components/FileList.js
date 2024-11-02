@@ -170,7 +170,7 @@ const FileList = ({
                     className={classes.white}
                     component="th"
                     scope="row"
-                    onClick={() => onFileClick(file, i)} // Set click only on Name cell
+                    onClick={() => onFileClick(file, i)}
                     style={{ cursor: "pointer" }}
                   >
                     {file.isFolder ? <StyledFolderIcon /> : <StyledFileIcon />}
@@ -197,7 +197,10 @@ const FileList = ({
                     </TableCell>
                   ) : (
                     <TableCell className={classes.white}>
-                      <StyledCloudDownloadIcon style={{ cursor: "pointer" }} />
+                      <StyledCloudDownloadIcon
+                        style={{ cursor: "pointer" }}
+                        onClick={() => onFileClick(file, i)}
+                      />
                     </TableCell>
                   )}
                 </TableRow>

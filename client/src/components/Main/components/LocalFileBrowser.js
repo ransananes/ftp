@@ -63,7 +63,7 @@ const LocalFileBrowser = () => {
           window.URL.revokeObjectURL(url);
         })
         .catch((error) => {
-          console.error("Download error:", error);
+          
         });
     }
   };
