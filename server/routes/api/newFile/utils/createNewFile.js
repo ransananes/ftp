@@ -2,7 +2,6 @@
 const FileModel = require('../../../../modules/file'); 
 
 const createNewFile = (fileName, currentDir, size , creationDate , description, res) => {
-    console.log(fileName, currentDir, size , creationDate , description);
   // Save to DB
   const newFile = new FileModel({
     filePath: currentDir,
