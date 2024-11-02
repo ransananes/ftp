@@ -19,9 +19,6 @@ function FileUpload({ currentDirectory }) {
     },
     onChange(info) {
       const { status } = info.file;
-      if (status === "uploading") {
-        console.log("Uploading file:", info.file);
-      }
       if (status === "done") {
         message.success(`${info.file.name} file uploaded successfully.`);
       } else if (status === "error") {

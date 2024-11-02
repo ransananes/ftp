@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from "react";
 import FileBrowser from "./FileBrowser/FileBrowser";
 import { isValid } from "../../../utils/utils";
-import { server } from "../../../constants/data";
 import { publicRequest } from "../../../api/requestMethods";
 import { getFileExtension } from "../../../utils/filesUtils";
+import { toast } from "react-toastify";
+import ERROR from "../../../constants/error";
 
 const initalDirectory = "/";
 
@@ -49,7 +50,7 @@ const LocalFileBrowser = () => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
 
           const filename = file.fileName;
-          
+
           // create a download link
           const link = document.createElement("a");
           link.href = url;
@@ -63,7 +64,7 @@ const LocalFileBrowser = () => {
           window.URL.revokeObjectURL(url);
         })
         .catch((error) => {
-          
+          toast.error(ERROR.DOWNLOAD);
         });
     }
   };
