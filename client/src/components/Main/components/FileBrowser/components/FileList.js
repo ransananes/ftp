@@ -153,7 +153,7 @@ const FileList = ({
             <TableCell className={`${classes.white} ${classes.header}`}>
               Size
             </TableCell>
-            <TableCell className={classes.white}>Kind</TableCell>
+            <TableCell className={classes.white}>Type</TableCell>
             <TableCell className={classes.white}>Description</TableCell>
           </TableRow>
         </TableHead>
