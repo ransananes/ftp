@@ -7,6 +7,7 @@ const ERROR = {
   UNKNOWN: "An unknown error occurred. Please try again.",
   FILE_TOO_LARGE: "File is too large to upload.",
   FOLDER: "Unexpected error while trying to create a folder",
+  DESCRIPTION_REQUIRED: "A description is required",
 };
 
 export default ERROR;

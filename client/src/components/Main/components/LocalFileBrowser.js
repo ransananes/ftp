@@ -6,6 +6,8 @@ import { publicRequest } from "../../../api/requestMethods";
 import { getFileExtension } from "../../../utils/filesUtils";
 import { toast } from "react-toastify";
 import ERROR from "../../../constants/error";
+import FileDialog from "./FileBrowser/components/Dialog/FileDialog";
+import { createFolder } from "./FileBrowser/components/Dialog/utils/folderUtils";
 
 const initalDirectory = "/";
 
@@ -25,7 +27,8 @@ const LocalFileBrowser = () => {
 
   const [locations, setLocations] = useState([]);
 
-  const [selectedFile, setSelectedFile] = useState();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [isFolderDialog, setIsFolderDialog] = useState(true);
 
   useEffect(() => {
     getFilesFromDir();
@@ -69,6 +72,22 @@ const LocalFileBrowser = () => {
     }
   };
 
+  // folder creation
+  const onFolderCreate = (folderName, description, currentDirectory) => {
+    createFolder(folderName, description, currentDirectory)
+      .then(() => {
+        toast.success("New Folder Created");
+        getFilesFromDir();
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
   const getFilesFromDir = () => {
     // change string to prevent bugs
     var url_link = currentDirectory.replaceAll("/", "002F");
@@ -85,35 +104,6 @@ const LocalFileBrowser = () => {
         );
       }
     });
-  };
-
-  const onFolderCreate = () => {
-    let folder_name = prompt("Create the folder");
-    if (!folder_name) return;
-    // checks if folder name is valid
-    if (!isValid(folder_name) || folder_name.includes("002F")) {
-      alert("Can't create folder with the name " + folder_name);
-      return;
-    }
-    var description_folder = prompt("Enter Description to Folder");
-    if (description_folder.length === 0) {
-      alert("Can't leave empty description");
-      return;
-    }
-
-    let item = {
-      name: folder_name,
-      isFolder: true,
-      currentDir: currentDirectory,
-      description: description_folder,
-    };
-    publicRequest
-      .post("api/addNewFile/", item)
-      .then((response) => {
-        alert(response.data.status);
-        getFilesFromDir();
-      })
-      .catch((error) => toast.error(ERROR.FOLDER));
   };
 
   const onRefreshList = () => {
@@ -135,20 +125,41 @@ const LocalFileBrowser = () => {
     setCurrentIndex(currentIndex - 1);
   };
 
+  // dialog handlers
+  const openFolderDialog = () => {
+    setIsFolderDialog(true);
+    setDialogOpen(true);
+  };
+
+  const openFileUploadDialog = () => {
+    setIsFolderDialog(false);
+    setDialogOpen(true);
+  };
+
   return (
-    <FileBrowser
-      currentDirectory={currentDirectory}
-      currentFiles={currentFiles}
-      locations={locations}
-      nextEnabled={currentIndex > 0 && history.length > 0}
-      onFileClick={onFileClick}
-      onNewFolderClick={onFolderCreate}
-      onRefreshClick={onRefreshList}
-      onLocationClick={(location) => changeDirectory(location.drive)}
-      onNextClick={onNextClick}
-      onPreviousClick={onPreviousClick}
-      previousEnabled={history.length > currentIndex + 1}
-    />
+    <>
+      <FileBrowser
+        currentDirectory={currentDirectory}
+        currentFiles={currentFiles}
+        locations={locations}
+        nextEnabled={currentIndex > 0 && history.length > 0}
+        onFileClick={onFileClick}
+        onNewFolderClick={openFolderDialog}
+        onRefreshClick={onRefreshList}
+        onLocationClick={(location) => changeDirectory(location.drive)}
+        onNextClick={onNextClick}
+        onPreviousClick={onPreviousClick}
+        previousEnabled={history.length > currentIndex + 1}
+      />
+      <FileDialog
+        title={isFolderDialog ? "Create New Folder" : "Upload File"}
+        isFolder={isFolderDialog}
+        currentDirectory={currentDirectory}
+        open={dialogOpen}
+        onClose={handleCloseDialog}
+        onCreate={isFolderDialog ? onFolderCreate : onFileClick}
+      />
+    </>
   );
 };
 

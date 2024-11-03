@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Label from "../assets/Label";
-
 import { Grid2 } from "@mui/material";
 import styled from "styled-components";
 import Location from "./Location";
