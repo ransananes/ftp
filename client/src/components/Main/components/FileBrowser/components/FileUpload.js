@@ -1,11 +1,11 @@
 import React from "react";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 
 function FileUpload({ onFileUpload }) {
   const handleFileChange = (event) => {
-    const file = event.target.files[0]; // Get the selected file
+    const file = event.target.files[0];
     if (file) {
-      onFileUpload(file); // Call the provided function with the selected file
+      onFileUpload(file); 
     }
   };
 

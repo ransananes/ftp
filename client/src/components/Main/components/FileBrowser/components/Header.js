@@ -6,10 +6,8 @@ import IconButton from "../assets/IconButton";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
-import UploadIcon from "@mui/icons-material/Upload";
 import FileUpload from "./FileUpload";
-import { Grid2 } from "@mui/material";
+import { Grid2, Button } from "@mui/material";
 
 const StyledHeader = styled(Grid2)`
   width: 100%;
@@ -76,9 +74,15 @@ const Header = ({
       </NavigationContainer>
 
       <ActionContainer>
-        <StyledIconButton onClick={onNewFolderClick}>
-          <CreateNewFolderIcon fontSize="large" />
-        </StyledIconButton>
+        <Button
+          variant="contained"
+          component="span" // Use "span" as the component for the label
+          color="transparent"
+          style={{color:"white", border:"1px solid white"}}
+          onClick={onNewFolderClick}
+        >
+          Create Directory
+        </Button>{" "}
         <FileUpload
           currentDirectory={currentDirectory}
           onFileUpload={onFileUpload}

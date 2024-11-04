@@ -90,12 +90,7 @@ const LocalFileBrowser = () => {
   const onFileUploadConfirm = (file, description, currentDirectory) => {
     // Prepare data for file upload
     const formData = new FormData();
-    // let item = {
-    //   name: folderName,
-    //   isFolder: true,
-    //   currentDir: currentDirectory,
-    //   description: description,
-    // };
+
     formData.append("file", file);
     formData.append("name", file.name);
     formData.append("isFolder", false);
