@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import ERROR from "../../../constants/error";
 import FileDialog from "./FileBrowser/components/Dialog/FileDialog";
 import { createFolder } from "./FileBrowser/components/Dialog/utils/folderUtils";
+import FileUpload from "./FileBrowser/components/FileUpload";
 
 const initalDirectory = "/";
 
@@ -27,6 +28,7 @@ const LocalFileBrowser = () => {
 
   const [locations, setLocations] = useState([]);
 
+  const [selectedFile, setSelectedFile] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isFolderDialog, setIsFolderDialog] = useState(true);
 
@@ -84,6 +86,38 @@ const LocalFileBrowser = () => {
       });
   };
 
+  // file creation
+  const onFileUploadConfirm = (file, description, currentDirectory) => {
+    // Prepare data for file upload
+    const formData = new FormData();
+    // let item = {
+    //   name: folderName,
+    //   isFolder: true,
+    //   currentDir: currentDirectory,
+    //   description: description,
+    // };
+    formData.append("file", file);
+    formData.append("name", file.name);
+    formData.append("isFolder", false);
+    formData.append("currentDir", currentDirectory);
+    formData.append("description", description);
+
+    publicRequest
+      .post("api/addNewFile", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "directory": currentDirectory,
+        },
+      })
+      .then(() => {
+        toast.success(`${file.name} uploaded successfully.`);
+        getFilesFromDir(); // Refresh the file list
+      })
+      .catch((error) => {
+        toast.error(`${file.name} upload failed: ${error.message}`);
+      });
+  };
+
   const handleCloseDialog = () => {
     setDialogOpen(false);
   };
@@ -109,6 +143,7 @@ const LocalFileBrowser = () => {
   const onRefreshList = () => {
     getFilesFromDir();
   };
+
   const changeDirectory = (newDirectory) => {
     setCurrentDirectory(newDirectory);
     setHistory((prev) => [newDirectory, ...prev.slice(currentIndex)]);
@@ -131,8 +166,9 @@ const LocalFileBrowser = () => {
     setDialogOpen(true);
   };
 
-  const openFileUploadDialog = () => {
+  const openFileUploadDialog = (file) => {
     setIsFolderDialog(false);
+    setSelectedFile(file);
     setDialogOpen(true);
   };
 
@@ -145,6 +181,7 @@ const LocalFileBrowser = () => {
         nextEnabled={currentIndex > 0 && history.length > 0}
         onFileClick={onFileClick}
         onNewFolderClick={openFolderDialog}
+        onFileUpload={openFileUploadDialog}
         onRefreshClick={onRefreshList}
         onLocationClick={(location) => changeDirectory(location.drive)}
         onNextClick={onNextClick}
@@ -152,12 +189,13 @@ const LocalFileBrowser = () => {
         previousEnabled={history.length > currentIndex + 1}
       />
       <FileDialog
-        title={isFolderDialog ? "Create New Folder" : "Upload File"}
+        title={isFolderDialog ? "Create New Folder" : selectedFile.name}
+        file={selectedFile}
         isFolder={isFolderDialog}
         currentDirectory={currentDirectory}
         open={dialogOpen}
         onClose={handleCloseDialog}
-        onCreate={isFolderDialog ? onFolderCreate : onFileClick}
+        onCreate={isFolderDialog ? onFolderCreate : onFileUploadConfirm}
       />
     </>
   );

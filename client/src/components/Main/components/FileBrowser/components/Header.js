@@ -1,38 +1,94 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import styled from "styled-components";
 import Title from "../assets/Title";
-import IconButton from "../assets/IconButton"
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos"
+import IconButton from "../assets/IconButton";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
+import UploadIcon from "@mui/icons-material/Upload";
+import FileUpload from "./FileUpload";
 import { Grid2 } from "@mui/material";
 
-const StyledHeader = styled(Grid2)`    
-    width: 100%;
-    height: 70px;
-    float: left;
-    background-color: #3a393e;
-    border-top-right-radius: 9px;
+const StyledHeader = styled(Grid2)`
+  width: 100%;
+  height: 70px;
+  background-color: #3a393e;
+  border-top-right-radius: 9px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  justify-content: space-between;
 `;
 
-const Header = ({ currentDirectory, onPreviousClick, onNextClick, nextEnabled, previousEnabled }) => {
-    return <StyledHeader container alignItems="center" direction="row" justifycontent="flex-start" >
-        <Grid2 style={{ marginLeft: 8 }}>
-            <IconButton onClick={previousEnabled ? onPreviousClick : () => {}} disabled={!previousEnabled}>
-                <ArrowBackIosIcon />
-            </IconButton>
-        </Grid2>
-        <Grid2 >
-            <IconButton onClick={nextEnabled ? onNextClick : () => {}} disabled={!nextEnabled}>
-                <ArrowForwardIosIcon />
-            </IconButton>
-        </Grid2>
-        <Grid2 style={{ textAlign: "left" }} size={6}>
-            <Title>{currentDirectory}</Title>
-        </Grid2>
+const NavigationContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`;
 
-    </StyledHeader>;
+const ActionContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
+
+const StyledIconButton = styled(IconButton)`
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; /* Explicit width for consistent icon size */
+  height: 36px; /* Explicit height for consistent icon size */
+  padding: 0;
+  &:hover {
+    color: #3c8dbc;
+    transform: scale(1.1);
+    transition: color 0.3s, transform 0.3s;
+  }
+`;
+const Header = ({
+  currentDirectory,
+  onPreviousClick,
+  onNextClick,
+  nextEnabled,
+  previousEnabled,
+  onNewFolderClick,
+  onFileUpload,
+}) => {
+  return (
+    <StyledHeader container alignItems="center" direction="row">
+      <NavigationContainer>
+        <StyledIconButton
+          onClick={previousEnabled ? onPreviousClick : null}
+          disabled={!previousEnabled}
+        >
+          <ArrowBackIosIcon fontSize="large" />
+        </StyledIconButton>
+        <StyledIconButton
+          onClick={nextEnabled ? onNextClick : null}
+          disabled={!nextEnabled}
+        >
+          <ArrowForwardIosIcon fontSize="large" />
+        </StyledIconButton>
+        <Title style={{ marginLeft: 16 }}>{currentDirectory}</Title>
+      </NavigationContainer>
+
+      <ActionContainer>
+        <StyledIconButton onClick={onNewFolderClick}>
+          <CreateNewFolderIcon fontSize="large" />
+        </StyledIconButton>
+        <FileUpload
+          currentDirectory={currentDirectory}
+          onFileUpload={onFileUpload}
+        />
+        <StyledIconButton onClick={() => console.log("Refresh")}>
+          <RefreshIcon fontSize="large" />
+        </StyledIconButton>
+      </ActionContainer>
+    </StyledHeader>
+  );
 };
 
 Header.propTypes = {
@@ -40,7 +96,7 @@ Header.propTypes = {
   nextEnabled: PropTypes.bool,
   onNextClick: PropTypes.func,
   onPreviousClick: PropTypes.func,
-  previousEnabled: PropTypes.bool
+  previousEnabled: PropTypes.bool,
 };
 
 export default Header;

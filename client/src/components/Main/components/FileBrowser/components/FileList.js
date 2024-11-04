@@ -14,16 +14,19 @@ import {
 } from "@mui/material";
 import FolderIcon from "@mui/icons-material/Folder";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
-import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-import CreateNewFolderIcon from "@mui/icons-material/Folder";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import RefreshIcon from "@mui/icons-material/Refresh";
 import FileUpload from "./FileUpload";
 import { formatBytes } from "../../../../../utils/utils";
 
 const useStyles = makeStyles(() => ({
   white: {
     color: "white !important",
+    padding: "5px",
+    textOverflow: "ellipsis !important",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    maxWidth: "150px",
   },
   gray: {
     color: "gray",
@@ -32,27 +35,18 @@ const useStyles = makeStyles(() => ({
     borderRight: "1px solid #3c3c3c",
   },
   evenRow: {
-    backgroundColor: "#2a2b33",
+    backgroundColor: "#222222",
     "&:hover": {
       backgroundColor: "#3c3d44",
     },
   },
   oddRow: {
+    backgroundColor: "#222222",
     "&:hover": {
       backgroundColor: "#3c3d44",
     },
   },
 }));
-
-const StyledFileButtons = styled(Grid2)`
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  background-color: #232329;
-  min-height: 700px;
-  border: 1px solid #545353;
-`;
 
 const StyledFolderIcon = styled(FolderIcon)`
   color: gray;
@@ -78,23 +72,11 @@ const StyledFileIcon = styled(InsertDriveFileIcon)`
     transition: color 0.3s, transform 0.3s;
   }
 `;
-const StyledCloudDownloadIcon = styled(CloudDownloadIcon)`
+const StyledMoreActions = styled(MoreHorizIcon)`
   color: white;
   vertical-align: bottom;
   font-size: 20px !important;
   margin-right: 4px;
-`;
-const StyledCreateNewFolder = styled(CreateNewFolderIcon)`
-  color: white;
-  vertical-align: bottom;
-  cursor: pointer;
-  font-size: 30px !important;
-  margin-right: 4px;
-  &:hover {
-    color: #3c8dbc;
-    transform: scale(1.15);
-    transition: color 0.3s, transform 0.3s;
-  }
 `;
 
 const StyledFavoriteBorderIcon = styled(FavoriteBorderIcon)`
@@ -105,27 +87,6 @@ const StyledFavoriteBorderIcon = styled(FavoriteBorderIcon)`
   margin-right: 4px;
 `;
 
-const StyledRefreshIcon = styled(RefreshIcon)`
-  color: white;
-  vertical-align: bottom;
-  cursor: pointer;
-  font-size: 30px !important;
-  margin-right: 4px;
-  &:hover {
-    color: #3c8dbc;
-    animation: rotate 1s forwards;
-    transform: scale(1.15);
-  }
-
-  @keyframes rotate {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-`;
 const FileList = ({
   files,
   onFileClick,
@@ -136,25 +97,10 @@ const FileList = ({
   const classes = useStyles();
   return (
     <TableContainer>
-      <Grid2 align="center">
-        <StyledRefreshIcon onClick={() => onRefreshClick()} />
-        <StyledCreateNewFolder onClick={() => onNewFolderClick()} />
-      </Grid2>
-
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell className={`${classes.white} ${classes.header}`}>
-              Name
-            </TableCell>
-            <TableCell className={`${classes.white} ${classes.header}`}>
-              Date Modified
-            </TableCell>
-            <TableCell className={`${classes.white} ${classes.header}`}>
-              Size
-            </TableCell>
-            <TableCell className={classes.white}>Type</TableCell>
-            <TableCell className={classes.white}>Description</TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -164,7 +110,6 @@ const FileList = ({
                 <TableRow
                   key={file._id}
                   className={i % 2 === 0 ? classes.evenRow : classes.oddRow}
-                  style={{}}
                 >
                   <TableCell
                     className={classes.white}
@@ -197,7 +142,7 @@ const FileList = ({
                     </TableCell>
                   ) : (
                     <TableCell className={classes.white}>
-                      <StyledCloudDownloadIcon
+                      <StyledMoreActions
                         style={{ cursor: "pointer" }}
                         onClick={() => onFileClick(file, i)}
                       />
@@ -208,10 +153,6 @@ const FileList = ({
             })}
         </TableBody>
       </Table>
-
-      <StyledFileButtons justifycontent="center">
-        <FileUpload currentDirectory={currentDirectory} />
-      </StyledFileButtons>
     </TableContainer>
   );
 };

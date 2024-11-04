@@ -17,6 +17,7 @@ const darkTheme = createTheme({
 
 const FileDialog = ({
   title,
+  file = null,
   isFolder,
   open,
   onClose,
@@ -29,7 +30,7 @@ const FileDialog = ({
   const handleCreate = () => {
     // creation functions (folder or file)
     if (isFolder) onCreate(folderName, description, currentDirectory);
-    else onCreate(description, currentDirectory);
+    else onCreate(file, description, currentDirectory);
     // close & reset inputs
     handleClose();
   };
@@ -44,8 +45,27 @@ const FileDialog = ({
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Dialog open={open} onClose={onClose}>
-        <DialogTitle>{title}</DialogTitle>
+      <Dialog
+        open={open}
+        onClose={onClose}
+        PaperProps={{
+          sx: {
+            width: "500px",
+            minWidth: "500px",
+            maxWidth: "500px",
+            margin: "auto",
+          },
+        }}
+      >
+        <DialogTitle
+          sx={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {title}
+        </DialogTitle>{" "}
         <DialogContent>
           {isFolder && (
             <TextField

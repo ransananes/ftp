@@ -43,18 +43,21 @@ const upload = multer({
   },
 });
 
-
-
 router.post("/", upload.single("file"), async (req, res) => {
-  // configure the file_obj as json
   const { name, isFolder, currentDir, description } = req.body;
-  // get current Date
+
+  if (!name || !currentDir || typeof isFolder === "undefined") {
+    return res.status(400).json({ message: "Missing required fields." });
+  }
+
   let creationDate = date.getDate();
-  if (isFolder) {
+  if (typeof isFolder === "boolean") {
     const fullPath = path.join(folderPath, currentDir, name);
     createNewFolder(fullPath, currentDir, name, creationDate, description, res);
   } else {
-    // upload a file to db
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded." });
+    }
     const { size, filename } = req.file;
     createNewFile(filename, currentDir, size, creationDate, description, res);
   }
@@ -63,10 +66,8 @@ router.post("/", upload.single("file"), async (req, res) => {
 // Error handler for Multer
 router.use((err, req, res, next) => {
   if (err instanceof multer.MulterError) {
-    // Handle multer specific errors
     return res.status(500).json({ message: err.message });
   } else if (err) {
-    // Handle other errors (like file already exists)
     return res.status(400).json({ message: err.message });
   }
   next();

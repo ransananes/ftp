@@ -18,6 +18,7 @@ const FileBrowser = ({
   currentFiles,
   onFileClick,
   onNewFolderClick,
+  onFileUpload,
   onRefreshClick,
 }) => {
   return (
@@ -28,13 +29,14 @@ const FileBrowser = ({
           currentDirectory={currentDirectory}
           previousEnabled={previousEnabled}
           nextEnabled={nextEnabled}
+          onNewFolderClick={onNewFolderClick}
+          onFileUpload={onFileUpload}
           onPreviousClick={onPreviousClick}
           onNextClick={onNextClick}
         />
         <FileList
           files={currentFiles}
           onFileClick={onFileClick}
-          onNewFolderClick={onNewFolderClick}
           onRefreshClick={onRefreshClick}
           currentDirectory={currentDirectory}
         />

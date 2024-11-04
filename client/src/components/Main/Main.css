@@ -3,11 +3,9 @@
 }
 .__pcs_cs img, span {
     display: block;
-    margin: 1.5rem auto;
+    margin: auto;
 }
 .__pcs_cs_search_engine {
     display: block;
     min-height: 85vh;
-    margin: 0 auto;
-    background-color: white;
 }

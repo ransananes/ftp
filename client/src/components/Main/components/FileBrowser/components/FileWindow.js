@@ -9,7 +9,7 @@ const StyledFileWindow = styled(Grid2)`
   height: 100%;
   border-radius: 10px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  background-color: #232329;
+  background-color: #1A1A1A;
   min-height: 700px;
   border: 1px solid #545353;
   display: flex;

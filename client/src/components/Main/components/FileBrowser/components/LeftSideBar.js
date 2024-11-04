@@ -9,8 +9,8 @@ import Title from "../assets/Title";
 const StyledLeftSideBar = styled(Grid2)`
   border-bottom-left-radius: 9px;
   border-top-left-radius: 9px;
-  background-color: #2a2a2f;
-  border-right: 1px solid black;
+  background-color: #222222;
+  border-right: 0.5px solid black;
   padding: 16px;
 `;
 
@@ -25,7 +25,7 @@ const LocationItems = styled.div`
 const LeftSideBar = ({ locations, onLocationClick }) => (
   <StyledLeftSideBar size={2}>
     <Grid2 container justifyContent="flex-start">
-      <LeftAlignGrid size={12}>
+      <LeftAlignGrid size={10}>
         <Title>Favorites</Title>
       </LeftAlignGrid>
       <LocationItems>
