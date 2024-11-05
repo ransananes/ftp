@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Title from "../assets/Title";
 import IconButton from "../assets/IconButton";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
@@ -37,8 +37,8 @@ const StyledIconButton = styled(IconButton)`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px; /* Explicit width for consistent icon size */
-  height: 36px; /* Explicit height for consistent icon size */
+  width: 36px;
+  height: 36px;
   padding: 0;
   &:hover {
     color: #3c8dbc;
@@ -46,6 +46,40 @@ const StyledIconButton = styled(IconButton)`
     transition: color 0.3s, transform 0.3s;
   }
 `;
+
+const StyledButton = styled(Button)`
+  color: white;
+  border: 1px solid white !important;
+  background-color: transparent !important;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0px 4px 15px rgba(60, 141, 188, 0.4);
+  }
+`;
+
+const StyledRefreshButton = styled(IconButton)`
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  padding: 10px;
+  border: 2px solid red !important; 
+  &:hover {
+    background-color: transparent !important;
+  }
+`;
+
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+const SpinningIcon = styled(RefreshIcon)`\
+  &:hover {
+    animation: ${spin} 1s linear infinite;
+  }
+`;
+
 const Header = ({
   currentDirectory,
   onPreviousClick,
@@ -74,22 +108,20 @@ const Header = ({
       </NavigationContainer>
 
       <ActionContainer>
-        <Button
+        <StyledButton
           variant="contained"
-          component="span" // Use "span" as the component for the label
-          color="transparent"
-          style={{color:"white", border:"1px solid white"}}
+          component="span"
           onClick={onNewFolderClick}
         >
-          Create Directory
-        </Button>{" "}
+          CREATE DIRECTORY
+        </StyledButton>{" "}
         <FileUpload
           currentDirectory={currentDirectory}
           onFileUpload={onFileUpload}
         />
-        <StyledIconButton onClick={() => console.log("Refresh")}>
-          <RefreshIcon fontSize="large" />
-        </StyledIconButton>
+        <StyledRefreshButton onClick={() => console.log("Refresh")}>
+          <SpinningIcon fontSize="large" />
+        </StyledRefreshButton>
       </ActionContainer>
     </StyledHeader>
   );

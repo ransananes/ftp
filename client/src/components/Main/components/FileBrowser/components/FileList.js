@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import { Grid2 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import {
   Table,
@@ -14,9 +13,8 @@ import {
 } from "@mui/material";
 import FolderIcon from "@mui/icons-material/Folder";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FileUpload from "./FileUpload";
 import { formatBytes } from "../../../../../utils/utils";
 
 const useStyles = makeStyles(() => ({
@@ -125,7 +123,7 @@ const FileList = ({
                     {file.creationDate}
                   </TableCell>
                   <TableCell className={classes.white} align="right">
-                    {formatBytes(file.size)}
+                    {file.isFolder ? <></> : formatBytes(file.size)}
                   </TableCell>
                   <TableCell className={classes.white}>{file.kind}</TableCell>
                   <TableCell className={classes.white}>
