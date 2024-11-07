@@ -127,7 +127,7 @@ const LocalFileBrowser = () => {
         setCurrentFiles(() =>
           response.data.files.map((file) => ({
             ...file,
-            kind: file.isFolder ? "folder" : getFileExtension(file.fileName),
+            kind: file.isFolder ? "" : getFileExtension(file.fileName),
             size: file.Size || file.fileSizeInBytes,
           }))
         );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -10,6 +10,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TablePagination,
 } from "@mui/material";
 import FolderIcon from "@mui/icons-material/Folder";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
@@ -85,24 +86,59 @@ const StyledFavoriteBorderIcon = styled(FavoriteBorderIcon)`
   margin-right: 4px;
 `;
 
+// Styled TablePagination component
+const StyledTablePagination = styled(TablePagination)`
+  .MuiTablePagination-toolbar {
+    background-color: #333333;
+    color: white;
+  }
+
+  .MuiTablePagination-selectLabel,
+  .MuiTablePagination-displayedRows {
+    color: gray;
+  }
+
+  .MuiTablePagination-actions button {
+    color: #3c8dbc;
+  }
+`;
+
 const FileList = ({ files, onFileClick }) => {
   const classes = useStyles();
-  // sort the files, so folders first
-  const sortedFiles = files.slice().sort((a, b) => {
-    return b.isFolder - a.isFolder;
-  });
+
+  // State for pagination
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  // Sort files so folders appear first
+  const sortedFiles = files.slice().sort((a, b) => b.isFolder - a.isFolder);
+
+  const filesToDisplay = sortedFiles.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
-    <TableContainer>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {sortedFiles &&
-            sortedFiles.map((file, i) => {
-              return (
+    <>
+      <TableContainer>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {filesToDisplay.length > 0 ? (
+              filesToDisplay.map((file, i) => (
                 <TableRow
                   key={file._id}
                   className={i % 2 === 0 ? classes.evenRow : classes.oddRow}
@@ -130,9 +166,7 @@ const FileList = ({ files, onFileClick }) => {
                   {file.isFolder ? (
                     <TableCell className={classes.white}>
                       <StyledFavoriteBorderIcon
-                        onClick={() => {
-                          console.log("clicked");
-                        }}
+                        onClick={() => console.log("clicked")}
                         style={{ cursor: "pointer" }}
                       />
                     </TableCell>
@@ -145,11 +179,38 @@ const FileList = ({ files, onFileClick }) => {
                     </TableCell>
                   )}
                 </TableRow>
-              );
-            })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={5} align="center" className={classes.white}>
+                  This directory seems to be empty.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <StyledTablePagination
+        sx={{
+          display: "flex",
+          position: "sticky",
+          borderRadius: "8px 8px 0 0",
+          border: "1px solid transparent",
+          bottom: 0,
+          marginTop: "2em",
+          justifyContent: "center",
+          padding: "16px 0",
+        }}
+        rowsPerPageOptions={[10, 25]}
+        component="div"
+        count={files.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+    </>
   );
 };
 
