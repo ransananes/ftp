@@ -85,11 +85,12 @@ const StyledFavoriteBorderIcon = styled(FavoriteBorderIcon)`
   margin-right: 4px;
 `;
 
-const FileList = ({
-  files,
-  onFileClick,
-}) => {
+const FileList = ({ files, onFileClick }) => {
   const classes = useStyles();
+  // sort the files, so folders first
+  const sortedFiles = files.slice().sort((a, b) => {
+    return b.isFolder - a.isFolder;
+  });
   return (
     <TableContainer>
       <Table className={classes.table}>
@@ -99,8 +100,8 @@ const FileList = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {files &&
-            files.map((file, i) => {
+          {sortedFiles &&
+            sortedFiles.map((file, i) => {
               return (
                 <TableRow
                   key={file._id}
