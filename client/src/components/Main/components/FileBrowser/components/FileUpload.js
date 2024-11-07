@@ -14,15 +14,15 @@ function FileUpload({ onFileUpload }) {
       <input
         type="file"
         onChange={handleFileChange}
-        style={{ display: 'none' }} // Hide the default input
+        style={{ display: 'none' }}
         id="file-upload"
       />
       <label htmlFor="file-upload">
         <Button 
           variant="contained" 
-          component="span" // Use "span" as the component for the label
+          component="span"
           color="primary"
-          sx={{ margin: '10px' }} // Custom styles
+          sx={{ margin: '10px' }}
         >
           Upload File
         </Button>

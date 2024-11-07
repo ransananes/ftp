@@ -33,11 +33,11 @@ const FileBrowser = ({
           onFileUpload={onFileUpload}
           onPreviousClick={onPreviousClick}
           onNextClick={onNextClick}
+          onRefreshClick={onRefreshClick}
         />
         <FileList
           files={currentFiles}
           onFileClick={onFileClick}
-          onRefreshClick={onRefreshClick}
           currentDirectory={currentDirectory}
         />
       </Grid2>
@@ -56,6 +56,7 @@ FileBrowser.propTypes = {
   onNextClick: PropTypes.func,
   onPreviousClick: PropTypes.func,
   previousEnabled: PropTypes.bool,
+  onRefreshClick: PropTypes.func,
 };
 
 export default FileBrowser;

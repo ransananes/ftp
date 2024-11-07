@@ -88,9 +88,6 @@ const StyledFavoriteBorderIcon = styled(FavoriteBorderIcon)`
 const FileList = ({
   files,
   onFileClick,
-  onNewFolderClick,
-  onRefreshClick,
-  currentDirectory,
 }) => {
   const classes = useStyles();
   return (

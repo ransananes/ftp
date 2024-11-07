@@ -88,6 +88,7 @@ const Header = ({
   previousEnabled,
   onNewFolderClick,
   onFileUpload,
+  onRefreshClick
 }) => {
   return (
     <StyledHeader container alignItems="center" direction="row">
@@ -119,7 +120,7 @@ const Header = ({
           currentDirectory={currentDirectory}
           onFileUpload={onFileUpload}
         />
-        <StyledRefreshButton onClick={() => console.log("Refresh")}>
+        <StyledRefreshButton onClick={onRefreshClick}>
           <SpinningIcon fontSize="large" />
         </StyledRefreshButton>
       </ActionContainer>
