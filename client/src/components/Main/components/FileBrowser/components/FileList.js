@@ -101,6 +101,9 @@ const StyledTablePagination = styled(TablePagination)`
   .MuiTablePagination-actions button {
     color: #3c8dbc;
   }
+  .Mui-disabled {
+    color: gray !important;
+  }
 `;
 
 const FileList = ({ files, onFileClick }) => {
@@ -189,16 +192,13 @@ const FileList = ({ files, onFileClick }) => {
             )}
           </TableBody>
         </Table>
-      </TableContainer>
-
-      <StyledTablePagination
+        <StyledTablePagination
         sx={{
           display: "flex",
-          position: "sticky",
           borderRadius: "8px 8px 0 0",
           border: "1px solid transparent",
           bottom: 0,
-          marginTop: "2em",
+          marginTop: "1em",
           justifyContent: "center",
           padding: "16px 0",
         }}
@@ -210,6 +210,9 @@ const FileList = ({ files, onFileClick }) => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      </TableContainer>
+
+
     </>
   );
 };
